@@ -43,7 +43,7 @@ resource "google_bigquery_dataset" "dataset" {
   friendly_name               = "test"
   description                 = "This is a test description"
   location                    = "EU"
-  default_table_expiration_ms = 3600000
+  default_table_expiration_ms = 6000
 
   labels = {
     env = "default"
@@ -56,7 +56,7 @@ resource "google_bigquery_dataset" "dataset" {
 
   access {
     role   = "WRITER"
-    user_by_email = "thibault.malherbe.ext@orange.com"
+    user_by_email = google_service_account.bqowner.email
   }
 
   access {
