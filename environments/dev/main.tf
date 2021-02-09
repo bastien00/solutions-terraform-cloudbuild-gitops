@@ -18,8 +18,12 @@ locals {
 }
 
 provider "google" {
+  version = "3.51.1"
   project = "${var.project}"
+  region  = "us-central1"
+  zone    = "us-central1-c"
 }
+
 
 module "vpc" {
   source  = "../../modules/vpc"
@@ -37,4 +41,82 @@ module "firewall" {
   source  = "../../modules/firewall"
   project = "${var.project}"
   subnet  = "${module.vpc.subnet}"
+}
+
+resource "google_project_service" "service" {
+
+  for_each = toset([
+    "compute.googleapis.com",
+    "oslogin.googleapis.com",
+  ])
+
+  service = each.key
+
+  project            = "orange-hubdata-cbs-dev"
+  disable_on_destroy = false
+}
+resource "google_bigquery_dataset" "dataset" {
+  dataset_id                  = "example_dataset"
+  friendly_name               = "test"
+  description                 = "This is a test description"
+  location                    = "EU"
+  default_table_expiration_ms = 3600000
+
+  labels = {
+    env = "default"
+  }
+
+  access {
+    role          = "OWNER"
+    user_by_email = google_service_account.bqowner.email
+  }
+
+  access {
+    role   = "WRITER"
+    user_by_email = "thibault.malherbe.ext@orange.com"
+  }
+
+  access {
+    role   = "READER"
+    group_by_email = "poc-hd-cbs-fibre@orange.com"
+
+  }
+
+}
+
+resource "google_service_account" "bqowner" {
+  account_id = "bqowner"
+}
+
+
+resource "google_bigquery_table" "rtable_fibre" {
+  dataset_id = google_bigquery_dataset.dataset.dataset_id
+  table_id   = "table_fibre"
+}
+
+resource "google_bigquery_job" "job" {
+  job_id     = "job_query"
+
+  labels = {
+    "example-label" ="label_value_fibre"
+  }
+
+  query {
+    query = "SELECT SUM(nb_logements) AS total_logement, SUM(nb_logements_professionnel) AS total_logement_pro, count(cle_site_id) AS num_site, date_etat_production FROM orange-hubdata-bdf-dev.orange_bdf_hda_socle_optimumorange_poc.bq_fai_optimumorange_oi GROUP BY date_etat_production"
+
+
+    destination_table {
+      project_id = google_bigquery_table.rtable_fibre.project
+      dataset_id = google_bigquery_table.rtable_fibre.dataset_id
+      table_id   = google_bigquery_table.rtable_fibre.table_id
+    }
+
+    allow_large_results = true
+    flatten_results = true
+
+    script_options {
+      key_result_statement = "LAST"
+    }
+  }
+  location="europe-west3"
 }
