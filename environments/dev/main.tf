@@ -49,21 +49,21 @@ resource "google_bigquery_dataset" "dataset" {
     env = "default"
   }
 
-  access {
-    role          = "OWNER"
-    user_by_email = google_service_account.bqowner.email
-  }
+# access {
+#    role          = "OWNER"
+#  user_by_email = google_service_account.bqowner.email
+#  }
 
-  access {
-    role   = "WRITER"
-    user_by_email = google_service_account.bqowner.email
-  }
+#  access {
+#    role   = "WRITER"
+#    user_by_email = google_service_account.bqowner.email
+#  }
 
-  access {
-    role   = "READER"
-    group_by_email = "poc-hd-cbs-fibre@orange.com"
+#  access {
+#    role   = "READER"
+#    group_by_email = "poc-hd-cbs-fibre@orange.com"
 
-  }
+#  }
 
 }
 
