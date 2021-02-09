@@ -18,7 +18,6 @@ locals {
 }
 
 provider "google" {
-  version = "3.51.1"
   project = "${var.project}"
   region  = "us-central1"
   zone    = "us-central1-c"
