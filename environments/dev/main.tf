@@ -34,7 +34,6 @@ resource "google_project_service" "service" {
   ])
 
   service = each.key
-
   project            = "orange-hubdata-cbs-dev"
   disable_on_destroy = false
 }
@@ -48,7 +47,7 @@ resource "google_bigquery_dataset" "dataset" {
   labels = {
     env = "default"
   }
-
+#to be checked
 # access {
 #    role          = "OWNER"
 #  user_by_email = google_service_account.bqowner.email
@@ -103,3 +102,30 @@ resource "google_bigquery_job" "job" {
   }
   location="europe-west3"
 }
+
+# Bucket to store Airflow DAG
+resource "google_storage_bucket" "rcomposer_bucket" {
+  name          = "composer_bucket"
+  location      = "europe-west3"
+  force_destroy = true
+
+  uniform_bucket_level_access = true
+
+}
+
+
+# Composer 
+resource "google_composer_environment" "test" {
+  name   = "my-composer-env"
+  region = "europe-west3"
+}
+
+
+
+
+
+
+
+
+
+
