@@ -34,7 +34,3 @@
 #}
 
 
-
-output "composer_bucket" {
-  value = "${ressource.rcomposer_bucket.name}"
-}

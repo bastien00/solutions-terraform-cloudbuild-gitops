@@ -115,13 +115,17 @@ resource "google_storage_bucket" "rcomposer_bucket" {
 
 
 # Composer 
-resource "google_composer_environment" "test" {
-  name   = "my-composer-env"
-  region = "europe-west3"
+resource "google_composer_environment" "composer_env" {
+    name = "composer-environment"
 }
 
-
-
+data "google_composer_environment" "composer_env" {
+    name = google_composer_environment.test.name
+    depends_on = [google_composer_environment.composer_env]
+}
+output "debug" {
+    value = data.google_composer_environment.composer_env.config
+}
 
 
 
