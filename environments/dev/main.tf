@@ -117,18 +117,33 @@ resource "google_storage_bucket" "rcomposer_bucket" {
 # Composer 
 
 
-resource "google_composer_environment" "composer_env" {
-    name = "composer-environment"
+resource "google_composer_environment" "rcomposer" {
+  name   = "CBScomposer"
+  region = "us-central1"
+
+
+  config {
+    software_config {
+      airflow_config_overrides = {
+        core-load_example = "True"
+      }
+
+      pypi_packages = {
+        numpy = ""
+        scipy = "==1.1.0"
+      }
+
+      env_variables = {
+        FOO = "bar"
+      }
+    }
+  }
 }
 
-data "google_composer_environment" "composer_env" {
-    name = google_composer_environment.composer_env.name
-    depends_on = [google_composer_environment.composer_env]
+
+
 }
 
-output "debug" {
-    value = data.google_composer_environment.composer_env.config
-}
 
 
 
