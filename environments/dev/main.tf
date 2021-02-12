@@ -118,7 +118,7 @@ resource "google_storage_bucket" "rcomposer_bucket" {
 
 
 resource "google_composer_environment" "rcomposer" {
-  name   = "CBScomposer"
+  name   = "composer_name"
   region = "us-central1"
 
 
