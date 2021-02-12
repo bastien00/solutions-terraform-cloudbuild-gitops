@@ -142,10 +142,6 @@ resource "google_composer_environment" "rcomposer" {
 
 
 
-}
-
-
-
 
 
 
