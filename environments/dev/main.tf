@@ -118,7 +118,7 @@ resource "google_storage_bucket" "rcomposer_bucket" {
 
 
 resource "google_composer_environment" "rcomposer" {
-  name   = "composer_name"
+  name   = "my-composer-env"
   region = "us-central1"
 
 
