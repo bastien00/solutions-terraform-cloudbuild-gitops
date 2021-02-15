@@ -13,4 +13,15 @@
 # limitations under the License.
 
 
-variable "project" {}
+# define GCP project name
+variable "gcp_project" {
+  type        = string
+  description = "orange-hubdata-cbs-dev"
+}
+
+
+# define GCP region
+variable "gcp_region" {
+  type        = string
+  description = "europe-west3"
+}

@@ -26,6 +26,9 @@ provider "google" {
 
 
 
+
+
+
 resource "google_project_service" "service" {
 
   for_each = toset([
