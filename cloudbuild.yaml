@@ -31,8 +31,7 @@ steps:
          echo "*************************************************"
         echo "reconfigure init"
         terraform init -reconfigure
-        echo "tf init"
-        terraform init
+
       else
         for dir in environments/*/
         do 
