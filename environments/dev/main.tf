@@ -41,8 +41,7 @@ resource "google_project_service" "service" {
   disable_on_destroy = false
 }
 resource "google_bigquery_dataset" "dataset" {
-  count = 0
-  dataset_id                  = "example_dataset_${count.index}"
+  dataset_id                  = "example_dataset"
   friendly_name               = "test"
   description                 = "This is a test description"
   location                    = "europe-west3"
@@ -76,14 +75,12 @@ resource "google_bigquery_dataset" "dataset" {
 
 
 resource "google_bigquery_table" "rtable_fibre" {
-  count=0
-  dataset_id = google_bigquery_dataset.dataset[count.index]
+  dataset_id = google_bigquery_dataset.dataset.dataset_id
   table_id   = "table_fibre"
 }
 
 resource "google_bigquery_job" "job" {
-  count = 0
-  job_id     = "job_query_creation_table_${count.index}"
+  job_id     = "job_query_creation_table1"
 
   labels = {
     "example-label" ="label_value_fibre"
@@ -94,9 +91,9 @@ resource "google_bigquery_job" "job" {
 
 
     destination_table {
-      project_id = google_bigquery_table.rtable_fibre[count.index].project
-      dataset_id = google_bigquery_table.rtable_fibre[count.index].dataset_id
-      table_id   = google_bigquery_table.rtable_fibre[count.index].table_id
+      project_id = google_bigquery_table.rtable_fibre.project
+      dataset_id = google_bigquery_table.rtable_fibre.dataset_id
+      table_id   = google_bigquery_table.rtable_fibre.table_id
     }
 
     allow_large_results = true
