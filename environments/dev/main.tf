@@ -118,7 +118,7 @@ resource "google_storage_bucket" "rcomposer_bucket" {
 
 resource "google_storage_bucket_object" "rdag" {
   name   = "airflowdag"
-  source = "C:/Applications/terraform/solutions-terraform-cloudbuild-gitops/modules/dag/example_python_operator.py"
+  source = "modules/dag/example_python_operator.py"
   bucket = "composer_bucket"
 }
 
