@@ -41,7 +41,8 @@ resource "google_project_service" "service" {
   disable_on_destroy = false
 }
 resource "google_bigquery_dataset" "dataset" {
-  dataset_id                  = "example_dataset${count.index}"
+  count = 0
+  dataset_id                  = "example_dataset_${count.index}"
   friendly_name               = "test"
   description                 = "This is a test description"
   location                    = "europe-west3"
@@ -80,7 +81,8 @@ resource "google_bigquery_table" "rtable_fibre" {
 }
 
 resource "google_bigquery_job" "job" {
-  job_id     = "job_query_creation_table${count.index}"
+  count = 0
+  job_id     = "job_query_creation_table_${count.index}"
 
   labels = {
     "example-label" ="label_value_fibre"
