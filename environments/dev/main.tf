@@ -76,7 +76,7 @@ resource "google_bigquery_dataset" "dataset" {
 
 
 resource "google_bigquery_table" "rtable_fibre" {
-  dataset_id = google_bigquery_dataset.dataset.dataset_id
+  dataset_id = google_bigquery_dataset.dataset.dataset_id[count.index]
   table_id   = "table_fibre"
 }
 
@@ -94,7 +94,7 @@ resource "google_bigquery_job" "job" {
 
     destination_table {
       project_id = google_bigquery_table.rtable_fibre.project
-      dataset_id = google_bigquery_table.rtable_fibre.dataset_id
+      dataset_id = google_bigquery_table.rtable_fibre.dataset_id[count.index]
       table_id   = google_bigquery_table.rtable_fibre.table_id
     }
 
