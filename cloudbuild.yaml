@@ -27,9 +27,11 @@ steps:
       if [ -d "environments/$BRANCH_NAME/" ]; then
         cd environments/$BRANCH_NAME
          echo "*************** TERRAFORM INIT ******************"
-         echo "*******  $BRANCH_NAME              ********"
+         echo "******* $BRANCH_NAME *******"
          echo "*************************************************"
+        echo "reconfigure init"
         terraform init -reconfigure
+        echo "tf init"
         terraform init
       else
         for dir in environments/*/
