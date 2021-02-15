@@ -24,11 +24,11 @@ steps:
   args:
   - '-c'
   - |
-      echo "***********************"
-      echo "$BRANCH_NAME"
-      echo "***********************"  
       if [ -d "environments/$BRANCH_NAME/" ]; then
         cd environments/$BRANCH_NAME
+         echo "*************** TERRAFORM INIT ******************"
+         echo "*******  $BRANCH_NAME              ********"
+         echo "*************************************************"
         terraform init -reconfigure
         terraform init
       else
