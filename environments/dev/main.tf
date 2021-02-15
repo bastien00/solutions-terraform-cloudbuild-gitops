@@ -76,6 +76,7 @@ resource "google_bigquery_dataset" "dataset" {
 
 
 resource "google_bigquery_table" "rtable_fibre" {
+  count=0
   dataset_id = google_bigquery_dataset.dataset[count.index]
   table_id   = "table_fibre"
 }
