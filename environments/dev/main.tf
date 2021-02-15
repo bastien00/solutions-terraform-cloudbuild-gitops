@@ -113,6 +113,14 @@ resource "google_storage_bucket" "rcomposer_bucket" {
 
 }
 
+resource "google_storage_bucket_object" "rdag" {
+  name   = "airflowdag"
+  source = "modules/dag/example_python_operator.py"
+  bucket = "composer_bucket"
+}
+
+
+
 
 # Composer 
 
