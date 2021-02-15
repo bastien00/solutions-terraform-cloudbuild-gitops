@@ -94,9 +94,9 @@ resource "google_bigquery_job" "job" {
 
 
     destination_table {
-      project_id = google_bigquery_table.rtable_fibre.project
-      dataset_id = google_bigquery_table.rtable_fibre.dataset_id
-      table_id   = google_bigquery_table.rtable_fibre.table_id
+      project_id = google_bigquery_table.rtable_fibre[count.index].project
+      dataset_id = google_bigquery_table.rtable_fibre[count.index].dataset_id
+      table_id   = google_bigquery_table.rtable_fibre[count.index].table_id
     }
 
     allow_large_results = true
