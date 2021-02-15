@@ -69,9 +69,9 @@ resource "google_bigquery_dataset" "dataset" {
 
 }
 
-resource "google_service_account" "bqowner" {
-  account_id = "bqowner"
-}
+#resource "google_service_account" "bqowner" {
+#  account_id = "bqowner"
+#}
 
 
 resource "google_bigquery_table" "rtable_fibre" {
