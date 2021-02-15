@@ -12,13 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# -reconfigure to avoid :  Error: Failed to get existing workspaces: querying Cloud Storage failed: storage: bucket doesn't exist
+
+
 
 steps:
 
 - id: 'tf init'
   name: 'hashicorp/terraform:0.14.3'
   entrypoint: 'sh'
-  args: 
+  args:
+  -reconfigure  
   - '-c'
   - |
       echo "***********************"
