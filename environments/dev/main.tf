@@ -77,7 +77,7 @@ resource "google_bigquery_table" "rtable_fibre" {
 }
 
 resource "google_bigquery_job" "job" {
-  job_id     = "job_query"
+  job_id     = "job_query_creation_table"
 
   labels = {
     "example-label" ="label_value_fibre"
